@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  FlatList,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  Alert,
-} from 'react-native';
+import {View, FlatList, Text, StyleSheet, Alert} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
 import useSearchOpenLibraryBooks from '../hooks/useSearchOpenLibraryBooks';
@@ -33,9 +26,12 @@ const SearchScreen = ({navigation}: SearchScreenProps): React.JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
-
-      {loading && <ActivityIndicator size="large" color="#0000ff" />}
+      <SearchBar
+        query={query}
+        setQuery={setQuery}
+        onSearch={handleSearch}
+        loading={loading}
+      />
       {error && <Text style={styles.error}>{error.message}</Text>}
 
       <FlatList

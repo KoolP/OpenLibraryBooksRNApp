@@ -5,15 +5,17 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
 
 interface SearchBarProps {
   query: string;
   setQuery: (text: string) => void;
   onSearch: () => void;
+  loading: boolean; // New prop to handle loading state
 }
 
-const SearchBar = ({query, setQuery, onSearch}: SearchBarProps) => {
+const SearchBar = ({query, setQuery, onSearch, loading}: SearchBarProps) => {
   return (
     <View style={styles.container}>
       <TextInput
@@ -22,9 +24,15 @@ const SearchBar = ({query, setQuery, onSearch}: SearchBarProps) => {
         value={query}
         onChangeText={setQuery}
       />
-      <TouchableOpacity style={styles.button} onPress={onSearch}>
-        <Text style={styles.buttonText}>Search</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        {loading ? (
+          <ActivityIndicator size="small" color="#024950" />
+        ) : (
+          <TouchableOpacity style={styles.button} onPress={onSearch}>
+            <Text style={styles.buttonText}>Search</Text>
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
@@ -40,20 +48,26 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     padding: 14,
-    marginRight: 10,
+    marginRight: 2,
     borderRadius: 10,
     borderColor: 'grey',
-    fontSize: 16,
+    fontSize: 18,
+  },
+  buttonContainer: {
+    width: 120,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
-    backgroundColor: '#007BFF',
-    paddingVertical: 16,
-    paddingHorizontal: 20,
+    backgroundColor: '#024950',
+    paddingVertical: 15,
+    paddingHorizontal: 24,
     borderRadius: 5,
   },
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 
