@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {
   View,
-  TextInput,
-  Button,
   FlatList,
   Text,
   StyleSheet,
@@ -14,6 +12,7 @@ import {RootStackParamList} from './types';
 import useSearchOpenLibraryBooks from '../hooks/useSearchOpenLibraryBooks';
 import ItemSeparator from '../components/ItemSeparator';
 import BookItem from '../components/BookItem';
+import SearchBar from '../components/SearchBar';
 
 type SearchScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Search'>;
@@ -34,14 +33,7 @@ const SearchScreen = ({navigation}: SearchScreenProps): React.JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        keyboardType="default"
-        placeholder="Search for books"
-        value={query}
-        onChangeText={setQuery}
-      />
-      <Button title="Search" onPress={handleSearch} />
+      <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
 
       {loading && <ActivityIndicator size="large" color="#0000ff" />}
       {error && <Text style={styles.error}>{error.message}</Text>}
