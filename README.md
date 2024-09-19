@@ -1,8 +1,29 @@
+# React Native Book Search App
+
+## Assignment:
+
+Create a React Native Book Search app that uses the OpenLibrary API to search for books and retrieve detailed information about a selected book.
+
+### **DEPRECATION WARNING**:
+
+The **Create React Native App** command has been deprecated. The React Native community and the React team now default to using **Expo** as the preferred starting point for new React Native projects. However, this app was created without **Expo**, as per the assignment instructions.
+
+For future projects, consider using **create-expo-app** or provide the following instructions, found in the React Native documentation, for working without a framework:
+
+- [Getting Started Without a Framework](https://reactnative.dev/docs/getting-started-without-a-framework)
+
+### Additional References:
+
+- [Expo and Create React Native App](https://github.com/expo/create-react-native-app)
+- [React Native Environment Setup](https://reactnative.dev/docs/environment-setup)
+
+---
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
 ## Step 1: Start the Metro Server
 
