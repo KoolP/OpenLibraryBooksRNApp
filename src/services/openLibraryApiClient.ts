@@ -3,11 +3,11 @@ const API_BASE_URL = 'https://openlibrary.org';
 export const openLibraryApiRequest = async <T>(
   endpoint: string,
   options: RequestInit = {},
-  timeout: number = 10000,
+  timeout: number = 500,
 ): Promise<T> => {
   return new Promise(async (resolve, reject) => {
     const timer = setTimeout(() => {
-      reject({message: 'Request timed out', status: 408});
+      reject({message: 'Request timed out, try again', status: 408});
     }, timeout);
 
     try {
