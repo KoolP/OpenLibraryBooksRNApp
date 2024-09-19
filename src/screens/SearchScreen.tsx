@@ -1,36 +1,74 @@
-import React from 'react';
-import {View, Button, Text, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  TextInput,
+  Button,
+  FlatList,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
+import useSearchOpenLibraryBooks from '../hooks/useSearchOpenLibraryBooks';
+import ItemSeparator from '../components/ItemSeparator';
+import BookItem from '../components/BookItem';
 
 type SearchScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Search'>;
 };
 
-function SearchScreen({navigation}: SearchScreenProps): React.JSX.Element {
+const SearchScreen = ({navigation}: SearchScreenProps): React.JSX.Element => {
+  const [query, setQuery] = useState<string>('');
+
+  const {search, loading, error, data: books} = useSearchOpenLibraryBooks();
+
+  const handleSearch = () => {
+    if (query.trim()) {
+      search(query);
+    } else {
+      Alert.alert('Please enter a search term.');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Search Screen</Text>
-      <Button
-        title="Go to Book Details"
-        onPress={() => navigation.navigate('BookDetails', {bookId: 1})}
+      <TextInput
+        style={styles.input}
+        keyboardType="default"
+        placeholder="Search for books"
+        value={query}
+        onChangeText={setQuery}
+      />
+      <Button title="Search" onPress={handleSearch} />
+
+      {loading && <ActivityIndicator size="large" color="#0000ff" />}
+      {error && <Text style={styles.error}>{error.message}</Text>}
+
+      <FlatList
+        data={books}
+        keyExtractor={item => item.key}
+        renderItem={({item}) => (
+          <BookItem
+            title={item.title}
+            author_name={item.author_name}
+            first_publish_year={item.first_publish_year}
+            onPress={() =>
+              navigation.navigate('BookDetails', {bookId: item.key})
+            }
+          />
+        )}
+        ItemSeparatorComponent={ItemSeparator}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
-  },
+  container: {flex: 1, padding: 20},
+  input: {borderWidth: 1, padding: 10, marginBottom: 10},
+  error: {color: 'red', marginTop: 10, marginBottom: 10},
 });
 
 export default SearchScreen;
