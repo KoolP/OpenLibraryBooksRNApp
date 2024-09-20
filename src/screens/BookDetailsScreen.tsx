@@ -10,19 +10,18 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
 import useFetchBookDetails from '../hooks/useFetchBookDetails';
+import {OPEN_LIBRARY_COVERS_URL} from '../services/openLibraryApiClient';
 
 type BookDetailsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'BookDetails'
 >;
 
-const BookDetailsScreen = ({
-  route,
-}: BookDetailsScreenProps): React.JSX.Element => {
+const BookDetailsScreen = ({route}: BookDetailsScreenProps): JSX.Element => {
   const {bookId} = route.params;
   const {
     fetchDetails,
-    loading,
+    isLoading,
     error,
     data: bookDetails,
   } = useFetchBookDetails();
@@ -31,7 +30,7 @@ const BookDetailsScreen = ({
     fetchDetails(bookId);
   }, [bookId, fetchDetails]);
 
-  if (loading) {
+  if (isLoading) {
     return <ActivityIndicator size="large" color="'#024950" />;
   }
 
@@ -43,18 +42,25 @@ const BookDetailsScreen = ({
     );
   }
 
+  const renderCoverImage = () => {
+    if (bookDetails?.covers && bookDetails.covers.length > 0) {
+      return (
+        <Image
+          style={styles.coverImage}
+          source={{
+            uri: `${OPEN_LIBRARY_COVERS_URL}${bookDetails.covers[0]}-M.jpg`,
+          }}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {bookDetails ? (
         <>
-          {bookDetails.covers && bookDetails.covers.length > 0 && (
-            <Image
-              style={styles.coverImage}
-              source={{
-                uri: `https://covers.openlibrary.org/b/id/${bookDetails.covers[0]}-M.jpg`,
-              }}
-            />
-          )}
+          {renderCoverImage()}
           <Text style={styles.title}>{bookDetails.title}</Text>
           <Text style={styles.publishDate}>
             First published: {bookDetails.first_publish_date || 'Unknown'}

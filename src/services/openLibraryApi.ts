@@ -31,10 +31,5 @@ export interface BookDetails {
 export const fetchBookDetails = async (
   bookKey: string,
 ): Promise<BookDetails> => {
-  // Ensure the bookKey doesn't have /works/ already
-  const cleanBookKey = bookKey.replace('/works/', '');
-
-  return await openLibraryApiRequest<BookDetails>(
-    `/works/${cleanBookKey}.json`,
-  );
+  return await openLibraryApiRequest<BookDetails>(`${bookKey}.json`);
 };

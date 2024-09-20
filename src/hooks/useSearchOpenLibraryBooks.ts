@@ -1,27 +1,22 @@
 import {useState} from 'react';
 import {searchBooks, Book} from '../services/openLibraryApi';
-
-interface ApiError extends Error {
-  status?: number;
-}
+import {ApiError} from '../types/global';
 
 interface UseSearchOpenLibraryBooksReturn {
   search: (query: string) => Promise<void>;
-  loading: boolean;
-  error: {message: string; status?: number} | null;
+  isLoading: boolean;
+  error: ApiError | null;
   data: Book[];
 }
 
 const useSearchOpenLibraryBooks = (): UseSearchOpenLibraryBooksReturn => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<{message: string; status?: number} | null>(
-    null,
-  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<ApiError | null>(null);
   const [data, setData] = useState<Book[]>([]);
 
   const search = async (query: string) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       setError(null);
 
       const results = await searchBooks(query);
@@ -31,19 +26,18 @@ const useSearchOpenLibraryBooks = (): UseSearchOpenLibraryBooksReturn => {
       } else {
         setData(results);
       }
-    } catch (e) {
-      const apiError = e as ApiError;
-      setError({
-        message:
-          apiError.message || 'An unknown error occurred. Please try again.',
-        status: apiError.status,
-      });
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        setError({message: e.message});
+      } else {
+        setError({message: 'An unexpected error occurred'});
+      }
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  return {search, loading, error, data};
+  return {search, isLoading, error, data};
 };
 
 export default useSearchOpenLibraryBooks;

@@ -20,7 +20,7 @@ const BookItem = ({
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.author}>
           {author_name ? author_name.join(', ') : 'Unknown Author'}
-          {first_publish_year ? ` • ${first_publish_year}` : ''}{' '}
+          {first_publish_year ? ` • ${first_publish_year}` : ''}
         </Text>
       </View>
     </TouchableOpacity>

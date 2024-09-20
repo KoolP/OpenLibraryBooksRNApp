@@ -12,14 +12,14 @@ interface SearchBarProps {
   query: string;
   setQuery: (text: string) => void;
   onSearch: () => void;
-  loading: boolean; // New prop to handle loading state
+  isLoading: boolean;
 }
 
 const SearchBar = ({
   query,
   setQuery,
   onSearch,
-  loading,
+  isLoading,
 }: SearchBarProps): JSX.Element => {
   return (
     <View style={styles.container}>
@@ -30,7 +30,7 @@ const SearchBar = ({
         onChangeText={setQuery}
       />
       <View style={styles.buttonContainer}>
-        {loading ? (
+        {isLoading ? (
           <ActivityIndicator size="small" color="#024950" />
         ) : (
           <TouchableOpacity style={styles.button} onPress={onSearch}>

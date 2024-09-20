@@ -11,10 +11,10 @@ type SearchScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Search'>;
 };
 
-const SearchScreen = ({navigation}: SearchScreenProps): React.JSX.Element => {
+const SearchScreen = ({navigation}: SearchScreenProps): JSX.Element => {
   const [query, setQuery] = useState<string>('');
 
-  const {search, loading, error, data: books} = useSearchOpenLibraryBooks();
+  const {search, isLoading, error, data: books} = useSearchOpenLibraryBooks();
 
   const handleSearch = () => {
     if (query.trim()) {
@@ -30,7 +30,7 @@ const SearchScreen = ({navigation}: SearchScreenProps): React.JSX.Element => {
         query={query}
         setQuery={setQuery}
         onSearch={handleSearch}
-        loading={loading}
+        isLoading={isLoading}
       />
       {error && <Text style={styles.error}>{error.message}</Text>}
 

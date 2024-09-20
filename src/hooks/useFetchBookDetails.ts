@@ -1,47 +1,39 @@
 import {useCallback, useState} from 'react';
 import {fetchBookDetails, BookDetails} from '../services/openLibraryApi';
-
-interface ApiError extends Error {
-  status?: number;
-}
+import {ApiError} from '../types/global';
 
 interface UseFetchBookDetailsReturn {
   fetchDetails: (bookId: string) => Promise<void>;
-  loading: boolean;
-  error: {message: string; status?: number} | null;
+  isLoading: boolean;
+  error: ApiError | null;
   data: BookDetails | null;
 }
 
 const useFetchBookDetails = (): UseFetchBookDetailsReturn => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<{message: string; status?: number} | null>(
-    null,
-  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<ApiError | null>(null);
   const [data, setData] = useState<BookDetails | null>(null);
 
   const fetchDetails = useCallback(async (bookId: string) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       setError(null);
-
-      console.log('Fetching details for book ID: ', bookId); // Log bookId before the API call
 
       const result = await fetchBookDetails(bookId);
 
       setData(result);
-    } catch (e) {
-      const apiError = e as ApiError;
-      setError({
-        message:
-          apiError.message || 'An unknown error occurred. Please try again.',
-        status: apiError.status,
-      });
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        setError({message: e.message});
+      } else {
+        setError({message: 'An unexpected error occurred'});
+      }
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, []);
 
-  return {fetchDetails, loading, error, data};
+  return {fetchDetails, isLoading, error, data};
 };
 
 export default useFetchBookDetails;
