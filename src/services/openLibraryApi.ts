@@ -1,6 +1,6 @@
 import {openLibraryApiRequest} from './openLibraryApiClient';
 
-interface Book {
+export interface Book {
   title: string;
   author_name: string[];
   first_publish_year: number;
@@ -11,7 +11,7 @@ interface SearchResponse {
   docs: Book[];
 }
 
-export const searchBooks = async (query: string) => {
+export const searchBooks = async (query: string): Promise<Book[]> => {
   const response = await openLibraryApiRequest<SearchResponse>(
     `/search.json?q=${encodeURIComponent(
       query,

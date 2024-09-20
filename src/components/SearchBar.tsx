@@ -15,7 +15,12 @@ interface SearchBarProps {
   loading: boolean; // New prop to handle loading state
 }
 
-const SearchBar = ({query, setQuery, onSearch, loading}: SearchBarProps) => {
+const SearchBar = ({
+  query,
+  setQuery,
+  onSearch,
+  loading,
+}: SearchBarProps): JSX.Element => {
   return (
     <View style={styles.container}>
       <TextInput

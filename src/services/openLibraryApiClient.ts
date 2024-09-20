@@ -3,7 +3,7 @@ const API_BASE_URL = 'https://openlibrary.org';
 export const openLibraryApiRequest = async <T>(
   endpoint: string,
   options: RequestInit = {},
-  timeout: number = 500,
+  timeout: number = 10000,
 ): Promise<T> => {
   return new Promise(async (resolve, reject) => {
     const timer = setTimeout(() => {

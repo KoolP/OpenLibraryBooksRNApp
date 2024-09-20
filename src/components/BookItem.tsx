@@ -13,7 +13,7 @@ const BookItem = ({
   author_name,
   first_publish_year,
   onPress,
-}: BookItemProps) => {
+}: BookItemProps): JSX.Element => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.itemContainer}>

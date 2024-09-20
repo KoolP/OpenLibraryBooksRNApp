@@ -1,17 +1,29 @@
 import {useState} from 'react';
-import {searchBooks} from '../services/openLibraryApi';
+import {searchBooks, Book} from '../services/openLibraryApi';
 
-const useSearchOpenLibraryBooks = () => {
+interface ApiError extends Error {
+  status?: number;
+}
+
+interface UseSearchOpenLibraryBooksReturn {
+  search: (query: string) => Promise<void>;
+  loading: boolean;
+  error: {message: string; status?: number} | null;
+  data: Book[];
+}
+
+const useSearchOpenLibraryBooks = (): UseSearchOpenLibraryBooksReturn => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{message: string; status?: number} | null>(
     null,
   );
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Book[]>([]);
 
   const search = async (query: string) => {
     try {
       setLoading(true);
       setError(null);
+
       const results = await searchBooks(query);
 
       if (results.length === 0) {
@@ -19,10 +31,12 @@ const useSearchOpenLibraryBooks = () => {
       } else {
         setData(results);
       }
-    } catch (e: any) {
+    } catch (e) {
+      const apiError = e as ApiError;
       setError({
-        message: e.message || 'An unknown error occurred. Please try again.',
-        status: e.status,
+        message:
+          apiError.message || 'An unknown error occurred. Please try again.',
+        status: apiError.status,
       });
     } finally {
       setLoading(false);

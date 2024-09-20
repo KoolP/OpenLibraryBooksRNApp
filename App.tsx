@@ -3,11 +3,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SearchScreen from './src/screens/SearchScreen';
 import BookDetailsScreen from './src/screens/BookDetailsScreen';
-import {RootStackParamList} from './src/screens/types'; // Import the types for navigation
+import {RootStackParamList} from './src/screens/types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const App = () => {
+const App = (): JSX.Element => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Search">

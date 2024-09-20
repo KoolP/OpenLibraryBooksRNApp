@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
-const ItemSeparator = () => {
+const ItemSeparator = (): JSX.Element => {
   return <View style={styles.separator} />;
 };
 
