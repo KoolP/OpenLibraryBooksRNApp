@@ -19,3 +19,22 @@ export const searchBooks = async (query: string): Promise<Book[]> => {
   );
   return response.docs;
 };
+
+export interface BookDetails {
+  title: string;
+  description?: string;
+  first_publish_date?: string;
+  covers?: number[];
+  authors?: {key: string}[];
+}
+
+export const fetchBookDetails = async (
+  bookKey: string,
+): Promise<BookDetails> => {
+  // Ensure the bookKey doesn't have /works/ already
+  const cleanBookKey = bookKey.replace('/works/', '');
+
+  return await openLibraryApiRequest<BookDetails>(
+    `/works/${cleanBookKey}.json`,
+  );
+};

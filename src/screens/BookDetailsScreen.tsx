@@ -1,39 +1,95 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {useRoute} from '@react-navigation/native';
-import {RouteProp} from '@react-navigation/native';
+import React, {useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  Image,
+  ScrollView,
+} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
+import useFetchBookDetails from '../hooks/useFetchBookDetails';
 
-type BookDetailsScreenRouteProp = RouteProp<RootStackParamList, 'BookDetails'>;
+type BookDetailsScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'BookDetails'
+>;
 
-function BookDetailsScreen(): React.JSX.Element {
-  const route = useRoute<BookDetailsScreenRouteProp>();
+const BookDetailsScreen = ({
+  route,
+}: BookDetailsScreenProps): React.JSX.Element => {
   const {bookId} = route.params;
+  const {
+    fetchDetails,
+    loading,
+    error,
+    data: bookDetails,
+  } = useFetchBookDetails();
+
+  useEffect(() => {
+    fetchDetails(bookId);
+  }, [bookId, fetchDetails]);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="'#024950" />;
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>{error.message}</Text>
+      </View>
+    );
+  }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Book Details</Text>
-      <Text style={styles.bookId}>Book ID: {bookId}</Text>
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      {bookDetails ? (
+        <>
+          {bookDetails.covers && bookDetails.covers.length > 0 && (
+            <Image
+              style={styles.coverImage}
+              source={{
+                uri: `https://covers.openlibrary.org/b/id/${bookDetails.covers[0]}-M.jpg`,
+              }}
+            />
+          )}
+          <Text style={styles.title}>{bookDetails.title}</Text>
+          <Text style={styles.publishDate}>
+            First published: {bookDetails.first_publish_date || 'Unknown'}
+          </Text>
+          <Text style={styles.description}>
+            {typeof bookDetails.description === 'string'
+              ? bookDetails.description
+              : 'No description available.'}
+          </Text>
+        </>
+      ) : (
+        <Text>No book details found</Text>
+      )}
+    </ScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+  container: {padding: 20},
+  coverImage: {
+    width: 100,
+    height: 150,
+    marginBottom: 10,
+    alignSelf: 'center',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    textAlign: 'center',
     marginBottom: 10,
   },
-  bookId: {
-    fontSize: 18,
-    color: 'gray',
-  },
+  description: {fontSize: 16, marginVertical: 10},
+  publishDate: {fontSize: 14, color: 'gray'},
+  errorContainer: {flex: 1, justifyContent: 'center', alignItems: 'center'},
+  errorText: {color: 'red'},
 });
 
 export default BookDetailsScreen;
