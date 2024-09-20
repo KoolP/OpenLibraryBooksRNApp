@@ -8,23 +8,23 @@ Create a React Native Book Search app that uses the OpenLibrary API to search fo
 
 ## DISCUSSION:
 
-1. Network calls and slow internet: The assignment specifies that the "application should give endusers feedback concerning errors or very slow internet connection". If I would interpret the mening of slow internet connection literally I would implement a solution where the application can recognise the users internet connection and give feedback on it. This kind of solution could be solved for example with react Native NetInfo package where internet connection can be monitored or identified if there is any internet connection. Now I applied instead a 10 second limiter to the fetch so it catches a sluggish fetch towards the api.
+1. Network calls and slow internet: The assignment requires the application to provide feedback to users regarding errors or slow internet connections. Instead of using NetInfo to monitor the internet connection, I implemented a 10-second timeout for fetch requests to handle sluggish responses.
 
-2. Opted not to use Axios to keed the deps at bare minimum. Here I found an interesting fact that the fetch API does not include timeout tracking out of the box. Created an abstraction for it as the assignment noted that too slow connections or fetches need to be handled.
+2. Axios vs. fetch: To minimize dependencies, I opted to use the built-in fetch API. I created a custom abstraction to handle timeouts, as fetch doesn't include timeout tracking out of the box.
 
-3. TS config and Linting: would prefer to go the community defaults on these. Added some preferences towards wwarning towards any and a setup for relying the Linter to focus on its own and Prettier doing its own thing.
+3. TS config and Linting: I used community defaults for TypeScript configuration and linting, with preferences for warning-based linting and separate configuration for linting and formatting.
 
 ## TODOS
 
-- Applying testing around specific use cases such as hooks or functions handling fetching.
-- Applying offline persistance, more context needed.
+- Implement testing for specific use cases, such as hooks or functions handling fetching.
+- Add offline persistence, but more context is needed to determine the specific requirements.
 - Handle errors and logging more gracefully.
 
 ### **DEPRECATION WARNING**:
 
-The **Create React Native App** command has been deprecated. The React Native community and the React team now default to using **Expo** as the preferred starting point for new React Native projects. However, this app was created without **Expo**, as per the assignment instructions.
+The Create React Native App command has been deprecated. The React Native community and the React team now recommend using Expo as the preferred starting point for new React Native projects. However, this app was created without Expo, as per the assignment instructions.
 
-For future projects, consider using **create-expo-app** or provide the following instructions, found in the React Native documentation, for working without a framework:
+For future projects, consider using create-expo-app or following the instructions in the React Native documentation for working without a framework:
 
 - [Getting Started Without a Framework](https://reactnative.dev/docs/getting-started-without-a-framework)
 
