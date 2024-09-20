@@ -10,7 +10,7 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from './types';
 import useFetchBookDetails from '../hooks/useFetchBookDetails';
-import {OPEN_LIBRARY_COVERS_URL} from '../services/openLibraryApiClient';
+import {OPEN_LIBRARY_COVERS_URL} from '../services/openLibraryApi/fetchWithTimeout';
 
 type BookDetailsScreenProps = NativeStackScreenProps<
   RootStackParamList,

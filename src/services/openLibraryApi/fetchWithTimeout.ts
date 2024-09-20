@@ -1,9 +1,10 @@
-import {ApiError} from '../types/global';
+import {ApiError} from '../../types/global';
 
 const OPEN_LIBRARY_BASE_URL = 'https://openlibrary.org';
 export const OPEN_LIBRARY_COVERS_URL = 'https://covers.openlibrary.org/b/id/';
 
-export const openLibraryApiRequest = async <T>(
+// The default fetch API does not include a timout mechanism therefore this abstraction that handles requests that take too long as this assignment requires.
+export const fetchWithTimeout = async <T>(
   endpoint: string,
   options: RequestInit = {},
   timeout: number = 10000,
@@ -24,29 +25,28 @@ export const openLibraryApiRequest = async <T>(
 
       if (!response.ok) {
         clearTimeout(timer);
-        return reject({
+        reject({
           message: `Error ${response.status}: ${response.statusText}`,
           status: response.status,
         } as ApiError);
+        return;
       }
 
       const data: T = await response.json();
       clearTimeout(timer);
       resolve(data);
-    } catch (error) {
+    } catch (error: unknown) {
       clearTimeout(timer);
 
-      if (error instanceof Error) {
-        reject({
-          message: error.message || 'An unknown error occurred',
-          status: 500,
-        } as ApiError);
-      } else {
-        reject({
-          message: 'An unknown error occurred',
-          status: 500,
-        } as ApiError);
-      }
+      const apiError: ApiError = {
+        message:
+          (error instanceof Error
+            ? error.message
+            : 'An unknown error occurred') || 'An unknown error occurred',
+        status: error instanceof Response ? error.status : 500,
+      };
+
+      reject(apiError);
     }
   });
 };

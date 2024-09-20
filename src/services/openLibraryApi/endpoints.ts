@@ -1,4 +1,4 @@
-import {openLibraryApiRequest} from './openLibraryApiClient';
+import {fetchWithTimeout} from './fetchWithTimeout';
 
 export interface Book {
   title: string;
@@ -11,8 +11,9 @@ interface SearchResponse {
   docs: Book[];
 }
 
+// SearchBooks is constrained to get key,title,author_name,first_publish_year for displaying only them in details page and beeing able to type it strongly
 export const searchBooks = async (query: string): Promise<Book[]> => {
-  const response = await openLibraryApiRequest<SearchResponse>(
+  const response = await fetchWithTimeout<SearchResponse>(
     `/search.json?q=${encodeURIComponent(
       query,
     )}&fields=key,title,author_name,first_publish_year`,
@@ -31,5 +32,5 @@ export interface BookDetails {
 export const fetchBookDetails = async (
   bookKey: string,
 ): Promise<BookDetails> => {
-  return await openLibraryApiRequest<BookDetails>(`${bookKey}.json`);
+  return await fetchWithTimeout<BookDetails>(bookKey + '.json');
 };

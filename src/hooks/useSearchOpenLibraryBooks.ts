@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {searchBooks, Book} from '../services/openLibraryApi';
+import {searchBooks, Book} from '../services/openLibraryApi/endpoints';
 import {ApiError} from '../types/global';
 
 interface UseSearchOpenLibraryBooksReturn {

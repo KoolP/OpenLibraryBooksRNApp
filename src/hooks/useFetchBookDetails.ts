@@ -1,5 +1,8 @@
 import {useCallback, useState} from 'react';
-import {fetchBookDetails, BookDetails} from '../services/openLibraryApi';
+import {
+  fetchBookDetails,
+  BookDetails,
+} from '../services/openLibraryApi/endpoints';
 import {ApiError} from '../types/global';
 
 interface UseFetchBookDetailsReturn {
