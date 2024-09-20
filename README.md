@@ -1,6 +1,6 @@
 # React Native Book Search App
 
-![React native app] (https://imgur.com/gSZO7mv)
+![React native app](https://imgur.com/gSZO7mv)
 
 ## Book Search App Assignment:
 
