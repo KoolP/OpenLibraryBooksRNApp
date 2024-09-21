@@ -8,7 +8,7 @@ Create a React Native Book Search app that uses the OpenLibrary API to search fo
 
 Current features:
 
-- Fetches for books and authors and lists their books + shows a books detailpage including more info of a specific book
+- Fetches for books and authors and lists their books + shows a books detail page including more info of a specific book
 - Test setup with Jest, React Testing Library + MSW
 - Custom utility funciton specified for handling fetch timeouts aka sluggish server responses or slow internet in React Native. This makes us less reliable on extra dependencies such as Axios.
 
