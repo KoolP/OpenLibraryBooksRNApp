@@ -4,7 +4,7 @@
 
 ## Book Search App Assignment:
 
-Create a React Native Book Search app that uses the OpenLibrary API to search for books and retrieve detailed information about a selected book.
+Create a React Native Book Search app that uses the OpenLibrary API to search for book titles or authors and retrieve detailed information about a selected book.
 
 ## DISCUSSION:
 
