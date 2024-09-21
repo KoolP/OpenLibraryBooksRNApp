@@ -6,6 +6,12 @@
 
 Create a React Native Book Search app that uses the OpenLibrary API to search for book titles or authors and retrieve detailed information about a selected book.
 
+Current features:
+
+- Fetches for books and authors and lists their books + shows a books detailpage including more info of a specific book
+- Test setup with Jest, React Testing Library + MSW
+- Custom utility funciton specified for handling fetch timeouts aka sluggish server responses or slow internet in React Native. This makes us less reliable on extra dependencies such as Axios.
+
 ## DISCUSSION:
 
 1. Added a testing setup including Jest, Raact Native Testing Library and MSW for simultating network calls Currenlty testing the app base rendering with the react-navigation/native navigation and a utility function that indentifies fetchTimeouts. Tests are found in the tests folder. MSW can now also moc the DEV mode so the simulator also fetches the mock endpoints. More info about msw: https://mswjs.io/docs/integrations/react-native/
