@@ -1,20 +1,16 @@
-import {useCallback, useState} from 'react';
-import {
-  fetchBookDetails,
-  BookDetails,
-} from '../services/openLibraryApi/endpoints';
-import {ApiError} from '../types/global';
+import {useState, useCallback} from 'react';
+import {fetchBookDetails, BookDetails} from '../api-services/endpoints';
 
 interface UseFetchBookDetailsReturn {
   fetchDetails: (bookId: string) => Promise<void>;
   isLoading: boolean;
-  error: ApiError | null;
+  error: {message: string} | null;
   data: BookDetails | null;
 }
 
 const useFetchBookDetails = (): UseFetchBookDetailsReturn => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<ApiError | null>(null);
+  const [error, setError] = useState<{message: string} | null>(null);
   const [data, setData] = useState<BookDetails | null>(null);
 
   const fetchDetails = useCallback(async (bookId: string) => {
@@ -23,11 +19,10 @@ const useFetchBookDetails = (): UseFetchBookDetailsReturn => {
       setError(null);
 
       const result = await fetchBookDetails(bookId);
-
       setData(result);
     } catch (e: unknown) {
-      if (e instanceof Error) {
-        setError({message: e.message});
+      if (typeof e === 'object' && e !== null && 'message' in e) {
+        setError({message: (e as {message: string}).message});
       } else {
         setError({message: 'An unexpected error occurred'});
       }

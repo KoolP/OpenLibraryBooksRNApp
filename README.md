@@ -8,19 +8,18 @@ Create a React Native Book Search app that uses the OpenLibrary API to search fo
 
 ## DISCUSSION:
 
-1. Added a testingsetup including Jest and react NAtive Testing Library. Currenlty only testing the app rendering with the react-navigation/native setup
+1. Added a testing setup including Jest and react Native Testing Library. Currenlty only testing the app rendering with the react-navigation/native setup.
 
 2. Network calls and slow internet: The assignment requires the application to provide feedback to users regarding errors or slow internet connections. Instead of using NetInfo to monitor the internet connection, I implemented a 10-second timeout for fetch requests to handle sluggish responses.
 
-3. Axios vs. fetch: To minimize dependencies, I opted to use the built-in fetch API. I created a custom abstraction to handle timeouts, as fetch doesn't include timeout tracking out of the box.
+3. Axios vs. fetch: To minimize dependencies, I opted to use the built-in fetch API. I created a custom abstraction to handle timeouts, as fetch on React Native doesn't include timeout tracking out of the box. React native does not have the AbortSignal.timeout as browsers have natively, see docs: https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal#aborting_a_fetch_operation_with_a_timeout
 
-4. TS config and Linting: I toght Linting rules are quite essential in this kind of assignment where clean code is dempnstrated. I used eslint and react-native community defaults for TypeScript configuration and linting, with preferences for warning-based linting and separate configuration for linting and Prettier formatting from each other. Here is a good talk from Josh Goldberg on Setting Up ESLint and TypeScript for React at React Miami 2023: https://www.youtube.com/watch?v=sSJBeWPIipQ
+4. TS config and Linting: I toght Linting rules are quite essential in this kind of assignment where clean code is demanded. I used eslint and react-native community defaults for TypeScript configuration and linting, with preferences for warning-based linting and separate configuration for linting and Prettier formatting from each other. Here is a good talk from Josh Goldberg on Setting Up ESLint and TypeScript for React at React Miami 2023: https://www.youtube.com/watch?v=sSJBeWPIipQ
 
 ## TODOS
 
 - Implement testing for specific use cases sucha s mocking of async calls to the api or even trying to implement msw: https://mswjs.io/docs/integrations/react-native/
 - Add offline persistence, but more context is needed to determine the specific requirements.
-- Handle errors and logging more gracefully.
 
 ### **DEPRECATION WARNING**:
 
@@ -38,4 +37,4 @@ For future projects, consider using create-expo-app or following the instruction
 ---
 
 Running app requires xCode or Android Studio
-Run: npx react-native run-ios
+Run ios: npx react-native run-ios

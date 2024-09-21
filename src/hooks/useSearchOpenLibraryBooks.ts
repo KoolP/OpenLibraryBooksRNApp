@@ -1,17 +1,21 @@
 import {useState} from 'react';
-import {searchBooks, Book} from '../services/openLibraryApi/endpoints';
-import {ApiError} from '../types/global';
+import {searchBooks} from '../api-services/endpoints';
+import {Book} from '../api-services/types';
 
 interface UseSearchOpenLibraryBooksReturn {
   search: (query: string) => Promise<void>;
   isLoading: boolean;
-  error: ApiError | null;
+  error: ErrorState | null;
   data: Book[];
+}
+
+interface ErrorState {
+  message: string;
 }
 
 const useSearchOpenLibraryBooks = (): UseSearchOpenLibraryBooksReturn => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<ApiError | null>(null);
+  const [error, setError] = useState<ErrorState | null>(null);
   const [data, setData] = useState<Book[]>([]);
 
   const search = async (query: string) => {
@@ -27,8 +31,8 @@ const useSearchOpenLibraryBooks = (): UseSearchOpenLibraryBooksReturn => {
         setData(results);
       }
     } catch (e: unknown) {
-      if (e instanceof Error) {
-        setError({message: e.message});
+      if (e && typeof e === 'object' && 'message' in e) {
+        setError({message: String((e as {message: string}).message)});
       } else {
         setError({message: 'An unexpected error occurred'});
       }
