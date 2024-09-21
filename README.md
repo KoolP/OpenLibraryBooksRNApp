@@ -12,7 +12,7 @@ Create a React Native Book Search app that uses the OpenLibrary API to search fo
 
 2. Axios vs. fetch: To minimize dependencies, I opted to use the built-in fetch API. I created a custom abstraction to handle timeouts, as fetch doesn't include timeout tracking out of the box.
 
-3. TS config and Linting: I used community defaults for TypeScript configuration and linting, with preferences for warning-based linting and separate configuration for linting and formatting.
+3. TS config and Linting: I toght Linting rules are quite essential in this kind of assignment where clean code is dempnstrated. I used eslint and react-native community defaults for TypeScript configuration and linting, with preferences for warning-based linting and separate configuration for linting and Prettier formatting from each other. Here is a good talk from Josh Goldberg on Setting Up ESLint and TypeScript for React at React Miami 2023: https://www.youtube.com/watch?v=sSJBeWPIipQ
 
 ## TODOS
 
