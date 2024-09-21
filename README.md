@@ -23,7 +23,7 @@ As time run out there was couple things I could look at further:
 - Implement testing for specific use cases sucha as mocking of async calls to the api or even trying to implement msw: https://mswjs.io/docs/integrations/react-native/ and end to end tests
 - Add offline persistence, maybe think of the setup in that case, would it for example save alist of already searched books and display them separately.
 
-### **NOTEABLE: DEPRECATION WARNING**:
+### **NOTEABLE DEPRECATION WARNING**:
 
 The Create React Native App command has been deprecated. The React Native community and the React team now recommend using Expo as the preferred starting point for new React Native projects. However, this app was created without Expo, as per the assignment instructions.
 
