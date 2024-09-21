@@ -8,7 +8,7 @@ Create a React Native Book Search app that uses the OpenLibrary API to search fo
 
 ## DISCUSSION:
 
-1. Added a testing setup including Jest and react Native Testing Library. Currenlty only testing the app rendering with the react-navigation/native setup.
+1. Added a testing setup including Jest and react Native Testing Library. Currenlty only testing the app base rendering with the react-navigation/native navigation.
 
 2. Network calls and slow internet: The assignment requires the application to provide feedback to users regarding errors or slow internet connections. Instead of using NetInfo to monitor the internet connection, I implemented a 10-second timeout for fetch requests to handle sluggish responses.
 
@@ -18,10 +18,12 @@ Create a React Native Book Search app that uses the OpenLibrary API to search fo
 
 ## TODOS
 
-- Implement testing for specific use cases sucha s mocking of async calls to the api or even trying to implement msw: https://mswjs.io/docs/integrations/react-native/
-- Add offline persistence, but more context is needed to determine the specific requirements.
+As time run out there was couple things I could look at further:
 
-### **DEPRECATION WARNING**:
+- Implement testing for specific use cases sucha as mocking of async calls to the api or even trying to implement msw: https://mswjs.io/docs/integrations/react-native/ and end to end tests
+- Add offline persistence, maybe think of the setup in that case, would it for example save alist of already searched books and display them separately.
+
+### **NOTEABLE: DEPRECATION WARNING**:
 
 The Create React Native App command has been deprecated. The React Native community and the React team now recommend using Expo as the preferred starting point for new React Native projects. However, this app was created without Expo, as per the assignment instructions.
 
