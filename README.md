@@ -8,7 +8,7 @@ Create a React Native Book Search app that uses the OpenLibrary API to search fo
 
 ## DISCUSSION:
 
-1. Added a testing setup including Jest and react Native Testing Library. Currenlty only testing the app base rendering with the react-navigation/native navigation.
+1. Added a testing setup including Jest and react Native Testing Library + MSW for async testing network calls. Currenlty testing the app base rendering with the react-navigation/native navigation and a utility function that indentifies fetchTimeouts. Tests are found in **tests** folder. More info about msw: https://mswjs.io/docs/integrations/react-native/
 
 2. Network calls and slow internet: The assignment requires the application to provide feedback to users regarding errors or slow internet connections. Instead of using NetInfo to monitor the internet connection, I implemented a 10-second timeout for fetch requests to handle sluggish responses.
 
@@ -20,7 +20,7 @@ Create a React Native Book Search app that uses the OpenLibrary API to search fo
 
 As time run out there was couple things I could look at further:
 
-- Implement testing for specific use cases sucha as mocking of async calls to the api or even trying to implement msw: https://mswjs.io/docs/integrations/react-native/ and end to end tests
+- Implement more testing for specific use cases sucha as further mocking of calls to the book library and what is displayed on the page and then end to end tests with for example Cypress.
 - Add offline persistence, maybe think of the setup in that case, would it for example save alist of already searched books and display them separately.
 
 ### **NOTEABLE DEPRECATION WARNING**:
