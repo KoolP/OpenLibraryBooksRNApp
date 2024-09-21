@@ -14,7 +14,7 @@ Current features:
 
 ## DISCUSSION:
 
-1. Added a testing setup including Jest, Raact Native Testing Library and MSW for simultating network calls Currenlty testing the app base rendering with the react-navigation/native navigation and a utility function that indentifies fetchTimeouts. Tests are found in the tests folder. MSW can now also moc the DEV mode so the simulator also fetches the mock endpoints. More info about msw: https://mswjs.io/docs/integrations/react-native/
+1. Added a testing setup including Jest, Raact Native Testing Library and MSW for simultating network calls. Currenlty testing the app base rendering with the react-navigation/native navigation and a second test on a utility function that indentifies fetch timeouts. Tests are found in the tests folder. MSW can now also moc the DEV mode if opted in, so the simulator also fetches the mock endpoints. This makes it easier to simulate beeing a user in test environment and making real network calls. More info about msw: https://mswjs.io/docs/integrations/react-native/
 
 2. Network calls and slow internet: The assignment requires the application to provide feedback to users regarding errors or slow internet connections. Instead of using NetInfo to monitor the internet connection, I implemented a 10-second timeout for fetch requests to handle sluggish responses.
 
@@ -22,12 +22,12 @@ Current features:
 
 4. TS config and Linting: I toght Linting rules are quite essential in this kind of assignment where clean code is demanded. I used eslint and react-native community defaults for TypeScript configuration and linting, with preferences for warning-based linting and separate configuration for linting and Prettier formatting from each other. Here is a good talk from Josh Goldberg on Setting Up ESLint and TypeScript for React at React Miami 2023: https://www.youtube.com/watch?v=sSJBeWPIipQ
 
-## TODOS
+### TODOS
 
 As time run out there was couple things I could look at further:
 
 - Implement more testing for specific use cases sucha as further mocking of calls to the book library and what is displayed on the page and then end to end tests with for example Cypress.
-- Add offline persistence, maybe think of the setup in that case, would it for example save alist of already searched books and display them separately.
+- Add offline persistence, here it would be interesting to know or come up with a specific use case, would it for example save a list of already searched books and display them separately. Maybe it could fetch a whole book, unsure if that was possible via the api.
 
 ### **NOTEABLE DEPRECATION WARNING**:
 
