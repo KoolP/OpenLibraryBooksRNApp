@@ -26,7 +26,7 @@ describe('fetchWithTimeout', () => {
   it('throws an error on timeout', async () => {
     server.use(
       http.get(`${OPEN_LIBRARY_BASE_URL}/search.json`, async () => {
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate a delay to trigger timeout
+        await new Promise(resolve => setTimeout(resolve, 400)); // Simulate a delay to trigger timeout
         return HttpResponse.json({docs: [{title: 'Mock Book'}]});
       }),
     );

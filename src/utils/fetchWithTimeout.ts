@@ -30,6 +30,7 @@ export const fetchWithTimeout = async <T>(
     const data: T = await response.json();
     return data;
   } catch (error: unknown) {
+    clearTimeout(timeoutId);
     if (signal.aborted) {
       throw {message: 'Request timed out, try again', status: 408};
     }
@@ -38,5 +39,7 @@ export const fetchWithTimeout = async <T>(
         error instanceof Error ? error.message : 'An unexpected error occurred',
       status: 500,
     };
+  } finally {
+    clearTimeout(timeoutId);
   }
 };
