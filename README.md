@@ -29,6 +29,7 @@ As time run out there was couple things I could look at further:
 
 - Add more testing for specific use cases such as further mocking of calls to the book library and what is displayed on the page and then end to end tests with for example Cypress.
 - Add offline persistence, here it would be interesting to know or come up with a specific use case, would it for example save a list of already searched books and display them separately. Maybe it could fetch a whole book, unsure if that was possible via the api.This subject also is a bit of an interesting feature as cacheing is regarded as on of the harder parts in software development and may bring risks instead of for example relying on a single source of truth: the database.
+- Look closer on the fetchWithTimeout util function and try to make it simpler.
 
 ### **NOTEABLE DEPRECATION WARNING**:
 
